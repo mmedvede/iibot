@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
+declare -A networks=()
+
+if [ -f /etc/iibotrc ]; then
+    source  /etc/iibotrc
+fi
+
 : "${ircdir:=$HOME/ircbot}"
 : "${nickname:=amabot}"
-
-declare -A networks=(
-    [irc.freenode.net]="#foss-aueb"
-)
 
 # some privacy please, thanks
 chmod 700 "$ircdir"

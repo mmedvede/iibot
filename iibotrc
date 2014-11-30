@@ -1,0 +1,9 @@
+# Add channels to monitor
+# networks[irc.freenode.net]="#channel #another-channel"
+# networks[another.network]="#channel #another-channel"
+
+# Set irc directory used by ii
+# ircdir=$HOME/ircbot
+
+# Set the bot's nickname
+# nickname=ii-bot
