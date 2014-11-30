@@ -12,9 +12,12 @@ fi
 : "${ircdir:=$HOME/ircbot}"
 : "${nickname:=amabot}"
 
+if [ ! -e $ircdir ]; then
+    mkdir $ircdir
+fi
 # some privacy please, thanks
 chmod 700 "$ircdir"
-chmod 600 "$ircdir"/*/ident &>/dev/null
+chmod 600 "$ircdir"/*/ident &>/dev/null || true
 
 monitor() {
     tailf -n1 "$ircdir/$network/$channel/out" | \
