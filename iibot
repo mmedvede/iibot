@@ -43,7 +43,7 @@ for network in "${!networks[@]}"; do
         rm -f "$ircdir/$network/in"
 
         # connect to netwrok - password is set through the env var IIPASS
-        ii -i "$ircdir" -n $nickname -s "$network" -e ssl &
+        ii -i "$ircdir" -n $nickname -s "$network" &
         pid="$!"
 
         # wait for the connection
