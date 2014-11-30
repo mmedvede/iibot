@@ -37,6 +37,12 @@ monitor() {
         done > "$ircdir/$network/$channel/in"
 }
 
+__cleanup() {
+    # Bring down entire process tree. If we do not do this, we would end up
+    # with 'ii' instances still up after this script exits.
+    kill -- -$$
+} && trap __cleanup EXIT
+
 for network in "${!networks[@]}"; do
     while true; do
         # cleanup
@@ -68,3 +74,5 @@ for network in "${!networks[@]}"; do
     done &
 done
 
+# Do not leave any children behind, we want to cleanup
+wait
