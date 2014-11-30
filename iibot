@@ -3,6 +3,9 @@
 set -e
 set -u
 
+thisfile=${BASH_SOURCE:-$0}
+thisdir=$(cd $(dirname "$thisfile") && pwd)
+
 declare -A networks=()
 
 if [ -f /etc/iibotrc ]; then
@@ -30,10 +33,10 @@ monitor() {
 
             # if msg contains a url, transform to url command
             [[ "$msg" =~ https?:// ]] && \
-                exec iicmd "$nick" "url ${msg#* }" "$ircdir" "$network" "$channel" "$nickname" | fold -w 255 &
+                exec $thisdir/iicmd "$nick" "url ${msg#* }" "$ircdir" "$network" "$channel" "$nickname" | fold -w 255 &
             # if msg is a command, invoke iicmd
             [[ "$msg" =~ ^! ]] && \
-                exec iicmd "$nick" "${msg#\!}" "$ircdir" "$network" "$channel" "$nickname" | fold -w 255 &
+                exec $thisdir/iicmd "$nick" "${msg#\!}" "$ircdir" "$network" "$channel" "$nickname" | fold -w 255 &
         done > "$ircdir/$network/$channel/in"
 }
 
