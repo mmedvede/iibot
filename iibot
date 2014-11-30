@@ -56,7 +56,9 @@ for network in "${!networks[@]}"; do
         pid="$!"
 
         # wait for the connection
+        echo "Waiting for $network" >&2
         while ! test -p "$ircdir/$network/in"; do sleep 1; done
+        echo "Connected to $network" >&2
 
         # auth to services
         [[ -e "$ircdir/$network/ident" ]] && \
