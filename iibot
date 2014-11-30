@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -e
+set -u
+
 declare -A networks=()
 
 if [ -f /etc/iibotrc ]; then
