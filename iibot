@@ -14,6 +14,7 @@ fi
 
 : "${ircdir:=$HOME/ircbot}"
 : "${nickname:=amabot}"
+: "${cmd_dir:=$thisdir/cmd}"
 
 if [ ! -e $ircdir ]; then
     mkdir $ircdir
@@ -33,7 +34,7 @@ monitor() {
 
             # if msg is a command, invoke iicmd
             [[ "$msg" =~ ^! ]] && \
-                exec $thisdir/iicmd "$nick" "${msg#\!}" "$ircdir" "$network" "$channel" "$nickname" | fold -w 255 &
+                exec $thisdir/iicmd "$nick" "${msg#\!}" "$ircdir" "$network" "$channel" "$nickname" "$cmd_dir" | fold -w 255 &
         done > "$ircdir/$network/$channel/in"
 }
 
