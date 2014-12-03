@@ -31,9 +31,6 @@ monitor() {
             nick="${nick:1:-1}"
             [[ "$nick" == "$nickname" ]] && continue
 
-            # if msg contains a url, transform to url command
-            [[ "$msg" =~ https?:// ]] && \
-                exec $thisdir/iicmd "$nick" "url ${msg#* }" "$ircdir" "$network" "$channel" "$nickname" | fold -w 255 &
             # if msg is a command, invoke iicmd
             [[ "$msg" =~ ^! ]] && \
                 exec $thisdir/iicmd "$nick" "${msg#\!}" "$ircdir" "$network" "$channel" "$nickname" | fold -w 255 &
