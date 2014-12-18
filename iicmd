@@ -24,20 +24,17 @@ if [[ "$nicks" == "@all" ]]; then
 fi
 
 # Standard commands are defined below. Custom commands are loaded from $cdir
-commands=(
-    list
-    $(find -L $cdir -type f -maxdepth 1 -mindepth 1 -printf '%f\n')
-)
+commands="list $(find -L $cdir -type f -maxdepth 1 -mindepth 1 -printf '%f\n')"
 
 # Do not allow undefined commands
-[[ "$commands" =~ $cmd ]] || exit
+[[ "$commands" =~ "$(basename $cmd)" ]] || exit
 
 case "$cmd" in
     list)
-        [[ -n "$nicks" ]] && printf -- "%s: %s\n" "$nicks" "${commands[*]}" || printf -- "%s: %s\n" "$nick" "${commands[*]}"
+        [[ -n "$nicks" ]] && printf -- "%s: %s\n" "$nicks" "$commands" || printf -- "%s: %s\n" "$nick" "$commands"
         ;;
     *)
-        # Run external command
+        echo "Running external: $cmd" 1>&2
         [[ -e $cdir/$cmd ]] && source $cdir/$cmd
         ;;
 esac
